@@ -2,9 +2,10 @@ import logo from './logo.svg';
 import './App.css';
 import React from "react";
 import EmployeeForm from "./components/EmployeeForm";
-import './EmployeeForm.css'
-
-
+import './EmployeeForm.css';
+import EmployeeList from "./components/EmployeeList";
+import { Routes, Route } from "react-router-dom";
+import EmployeeDetails from "./components/EmployeeDetails";
 
 class App extends React.Component {
   constructor(props) {
@@ -41,17 +42,22 @@ class App extends React.Component {
     return (
       <div className="app-container">
         <h1>Employee Management</h1>
+          <Routes>
+            <Route 
+              path="/" 
+              element={
+            <>
+              <EmployeeForm addEmployee={this.addEmployee} />
+              <EmployeeList employees={this.state.employees} />
+            </>
+                      } 
+            />
 
-        <EmployeeForm addEmployee={this.addEmployee} />
-
-        <h2>Employee List</h2>
-        <ul>
-          {this.state.employees.map((emp, index) => (
-            <li key={index}>
-              {emp.name} - {emp.email} - {emp.title} - {emp.department}
-            </li>
-          ))}
-        </ul>
+            <Route 
+              path="/employees/:id" 
+              element={<EmployeeDetails employees={this.state.employees} />} 
+            />
+        </Routes>
       </div>
     );
   }
