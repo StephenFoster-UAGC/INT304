@@ -1,13 +1,13 @@
 import React from "react";
 import { useParams, Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-function EmployeeDetails(props) {
+function EmployeeDetails() {
   const { id } = useParams();
+  const employees = useSelector((state) => state.employees);
 
-  // Get the selected employee using the index from the URL
-  const employee = props.employees[id];
+  const employee = employees[id];
 
-  // Handle invalid or missing employee
   if (!employee) {
     return (
       <div>
